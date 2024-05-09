@@ -1,25 +1,81 @@
-/**
-  |============================
-  | include css partials with
-  | default @import url()
-  |============================
-*/
-@import url('./reset.css');
-@import url('./vite-promo.css');
-@import url('./header.css');
-
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.timer {
+  display: flex;
+  gap: 24px;
+}
+.interface-input > input {
+  padding: 8px 16px 8px 16px;
+  width: 244px;
+  height: 20px;
+  color: rgb(46, 47, 66);
+  font-family: Montserrat;
   font-size: 16px;
-  line-height: 24px;
   font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.0025em;
+  text-align: left;
+  outline: none;
+  border: 1px solid rgb(128, 128, 128);
+  border-radius: 4px;
+}
+.interface-input > button {
+  width: 75px;
+  height: 40px;
+  color: rgb(152, 152, 152);
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.0025em;
+  text-align: left;
+  padding: 8px 16px 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: rgb(207, 207, 207);
+  margin-left: 8px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+}
+.value {
+  color: rgb(46, 47, 66);
+  font-family: Montserrat;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 48px;
+  letter-spacing: 0.001em;
+  text-align: left;
+}
 
-  color: #242424;
-  background-color: rgba(255, 255, 255, 0.87);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+.label {
+  color: rgb(46, 47, 66);
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.interface-input > input:hover {
+  border: 1px solid rgb(0, 0, 0);
+}
+.interface-input > input:focus {
+  border: 1px solid rgb(78, 117, 255);
+}
+.interface-input > .active-button {
+  background: rgb(78, 117, 255);
+  color: white;
+}
+.active-button:hover {
+  background: rgb(108, 140, 255);
+}
+.active-button:active {
+  background-color: blueviolet;
 }
