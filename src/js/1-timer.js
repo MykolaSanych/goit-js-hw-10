@@ -4,7 +4,6 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 const buttonStart = document.getElementsByTagName('button')[0];
 const timerDisplay = document.querySelectorAll('.value');
-console.log(buttonStart);
 let userSelectedDate;
 const days = timerDisplay[0];
 const hours = timerDisplay[1];
