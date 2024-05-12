@@ -2,14 +2,16 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-const buttonStart = document.getElementById('button-start');
+const buttonStart = document.getElementsByTagName('button')[0];
 const timerDisplay = document.querySelectorAll('.value');
-let userSelectedDate = {};
+console.log(buttonStart);
+let userSelectedDate;
 const days = timerDisplay[0];
 const hours = timerDisplay[1];
 const minutes = timerDisplay[2];
 const seconds = timerDisplay[3];
 let buttonActive = false;
+const input = document.getElementById('datetime-picker');
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -32,22 +34,48 @@ const options = {
     }
   },
 };
+function convertMs(ms) {
+  // Number of milliseconds per unit of time
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+
+  // Remaining days
+  const days = Math.floor(ms / day);
+  // Remaining hours
+  const hours = Math.floor((ms % day) / hour);
+  // Remaining minutes
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  // Remaining seconds
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+
+  return { days, hours, minutes, seconds };
+}
+function addLeadingZero(value) {
+  for (let key in value) {
+    value[key] = String(value[key]).padStart(2, '0');
+  }
+  return value;
+}
+
 flatpickr('#datetime-picker', options);
+
 function timer() {
+  input.disabled = true;
   if (buttonActive) {
     buttonActive = false;
     buttonStart.classList.remove('active-button');
     const timerId = setInterval(() => {
-      const realTime = Date.now();
-      const sec = Math.floor((userSelectedDate - realTime) / 1000);
-      const min = Math.floor(sec / 60);
-      const h = Math.floor(min / 60);
-      days.innerHTML = String(Math.floor(h / 24)).padStart(2, '0');
-      seconds.innerHTML = String(sec % 60).padStart(2, '0');
-      minutes.innerHTML = String(min % 60).padStart(2, '0');
-      hours.innerHTML = String(h % 24).padStart(2, '0');
-      if (userSelectedDate - realTime <= 1000) {
+      const setTime = userSelectedDate - Date.now();
+      const rightTime = addLeadingZero(convertMs(setTime));
+      days.innerHTML = rightTime.days;
+      hours.innerHTML = rightTime.hours;
+      minutes.innerHTML = rightTime.minutes;
+      seconds.innerHTML = rightTime.seconds;
+      if (setTime <= 1000) {
         clearInterval(timerId);
+        input.disabled = false;
       }
     }, 1000);
   } else {
